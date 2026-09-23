@@ -1,32 +1,52 @@
-<!doctype html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Awesome Capacitor App</title>
-    <meta
-      name="viewport"
-      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ByteShop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin:0; background:#0a0a0a; color:#fff; display:flex; align-items:center; justify-content:center; height:100vh; font-family:sans-serif; flex-direction:column; }
+  .icon { font-size:80px; margin-bottom:20px; }
+  #msg { text-align:center; font-size:18px; padding:0 30px; }
+  .sub { font-size:14px; opacity:0.6; margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="icon">🔐</div>
+<div id="msg">برای ورود، اثر انگشت خود را اسکن کنید…</div>
+<div class="sub" id="sub"></div>
+<script type="module">
+  import { NativeBiometric } from '@capgo/capacitor-native-biometric';
 
-    <script
-      type="module"
-      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
-    ></script>
+  const SITE_URL = 'https://byteshop.top';
 
-    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
-    <link rel="manifest" href="./manifest.json" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <meta name="theme-color" content="#31d53d" />
-  </head>
-  <body>
-    <capacitor-welcome></capacitor-welcome>
+  async function authenticate() {
+    try {
+      const check = await NativeBiometric.isAvailable();
+      if (!check.isAvailable) {
+        document.getElementById('sub').innerText = 'اثر انگشت روی این دستگاه تنظیم نشده';
+        setTimeout(() => { window.location.href = SITE_URL; }, 1500);
+        return;
+      }
 
-    <script src="./js/capacitor-welcome.js" type="module"></script>
-  </body>
+      await NativeBiometric.verifyIdentity({
+        reason: 'برای ورود به ByteShop تأیید هویت کنید',
+        title: 'ورود به ByteShop',
+        subtitle: 'اثر انگشت خود را اسکن کنید',
+        description: '',
+        useFallback: true,
+        maxAttempts: 3,
+      });
+
+      window.location.href = SITE_URL;
+    } catch (err) {
+      document.getElementById('msg').innerText = 'تأیید هویت ناموفق بود';
+      document.getElementById('sub').innerText = 'دوباره تلاش کنید...';
+      setTimeout(authenticate, 1500);
+    }
+  }
+
+  authenticate();
+</script>
+</body>
 </html>

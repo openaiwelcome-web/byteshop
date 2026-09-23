@@ -2,10 +2,6 @@
   "appId": "top.byteshop.app",
   "appName": "ByteShop",
   "webDir": "dist",
-  "server": {
-    "url": "https://byteshop.top",
-    "cleartext": false
-  },
   "plugins": {
     "SplashScreen": {
       "launchAutoHide": true,
