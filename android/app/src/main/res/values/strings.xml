@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ByteShop</string>
+    <string name="title_activity_main">ByteShop</string>
+    <string name="package_name">top.byteshop.app</string>
+    <string name="custom_url_scheme">top.byteshop.app</string>
+</resources>
