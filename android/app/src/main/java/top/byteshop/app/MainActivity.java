@@ -13,6 +13,11 @@ public class MainActivity extends BridgeActivity {
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        );
+
+        getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
