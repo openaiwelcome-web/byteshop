@@ -16,6 +16,7 @@
     "@capacitor/android": "^8.5.2",
     "@capacitor/camera": "latest",
     "@capacitor/core": "latest",
+    "@capacitor/inappbrowser": "^4.0.3",
     "@capacitor/splash-screen": "latest",
     "@capgo/capacitor-native-biometric": "^8.6.11"
   },
